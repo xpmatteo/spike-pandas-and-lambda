@@ -1,14 +1,8 @@
-FROM ubuntu:latest
+FROM amazonlinux:latest
 
-RUN apt-get update
-RUN apt-get upgrade
-RUN apt-get install -y python python-pip
-RUN pip install --upgrade pip
-RUN pip install Flask
+RUN yum -y update
+RUN yum clean all
+RUN yum -y install python35
+RUN yum -y install python35-pip
+RUN pip-3.5 install Flask
 COPY hello.py .
-
-
-
-
-
-
