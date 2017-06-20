@@ -15,3 +15,6 @@ push:
 
 run:
 	docker run -p 5000:5000 mv-free:latest python35 hello.py
+
+test:
+	docker run mv-free:latest python35 -m unittest discover
