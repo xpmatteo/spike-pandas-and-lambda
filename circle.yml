@@ -3,9 +3,14 @@ machine:
     - docker
 
 dependencies:
+  cache_directories:
+    - "~/docker"
+
   override:
     - docker info
+    - if [[ -e ~/docker/image.tar ]]; then docker load -i ~/docker/image.tar; fi
     - docker build -t mv-free/spike-circle-ci .
+    - mkdir -p ~/docker; docker save mv-free/spike-circle-ci > ~/docker/image.tar
 
 test:
   override:
