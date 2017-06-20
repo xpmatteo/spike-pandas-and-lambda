@@ -1,5 +1,4 @@
 FROM amazonlinux:latest
-
 RUN yum -y update
 RUN yum clean all
 RUN yum -y install python35
