@@ -11,6 +11,7 @@ RUN yum -y install zip
 RUN virtualenv-3.5 /opt/venv
 RUN /opt/venv/bin/pip install pandas
 
+RUN mkdir /root/work
 WORKDIR /root/work
 
 
