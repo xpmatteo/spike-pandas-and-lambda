@@ -13,14 +13,18 @@ RUN echo '/usr/local/lib' > /etc/ld.so.conf.d/local-libs.conf
 RUN ldconfig
 RUN cd .. && rm -rf Python-3.6.1.tgz Python-3.6.1
 
+# needed for packaging the lambda
 RUN yum -y install zip
-
-RUN /usr/local/bin/python3.6 -m venv /opt/venv
-RUN /opt/venv/bin/pip install numpy
 
 # utilities for interactive use
 RUN yum -y install vim less which
 RUN echo 'alias l="ls -la"' >> ~/.bashrc
+
+# create our virtual env
+RUN /usr/local/bin/python3.6 -m venv /opt/venv
+RUN /opt/venv/bin/pip install numpy
+RUN /opt/venv/bin/pip install pandas
+RUN find "/opt/venv/lib/python3.6/site-packages/" -name "*.so" | xargs strip
 
 RUN mkdir /root/work
 WORKDIR /root/work

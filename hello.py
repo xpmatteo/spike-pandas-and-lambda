@@ -10,14 +10,15 @@ for d, dirs, files in os.walk('lib'):
 
 
 import numpy
+import pandas as pd
 
 def hello_handler(event, context):
     t = str(datetime.datetime.now())
-    # m = pd.DataFrame({'foo': [1,2,3,4,5]})
-    # print(t, event, str(m))
+    m = pd.DataFrame({'foo': [1,2,3,4,5]})
+    print(t, event, str(m))
     return {
         'time': t,
-        'message': 'OK :-)',
+        'message': str(m),
     }
 
 
