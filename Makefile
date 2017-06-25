@@ -1,4 +1,7 @@
 
+deploy: create-package
+	bin/deploy.sh
+
 build:
 	bin/build.sh
 
