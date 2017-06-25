@@ -6,7 +6,7 @@
 # RUN mkdir /root/work
 # RUN zip -r9 ~/sample-lambda.zip *.py
 
-target=/root/work/sample-lambda.zip
+target=/root/work/DemoPandas.zip
 
 cd /opt/venv/lib/python3.5/site-packages
 zip -r9 $target *
