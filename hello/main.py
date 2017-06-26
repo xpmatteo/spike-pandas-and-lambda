@@ -13,14 +13,10 @@ import numpy
 import pandas as pd
 
 def hello_handler(event, context):
-    t = str(datetime.datetime.now())
     m = pd.DataFrame({'foo': [1,2,3,4,5]})
-    print(t, event, str(m))
     return {
-        'time': t,
         'message': str(m),
     }
-
 
 if __name__ == '__main__':
     print(hello_handler({}, None))
