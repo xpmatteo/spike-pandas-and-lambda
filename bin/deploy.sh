@@ -25,7 +25,7 @@ function create_execution_role() {
 }
 
 function function_exists() {
-  aws lambda get-function --function-name "$function" > /dev/null
+  aws lambda get-function --function-name "$function" > /dev/null 2> /dev/null
 }
 
 function create_function() {
@@ -33,7 +33,7 @@ function create_function() {
     --function-name "$function" \
     --zip-file "fileb://$function.zip" \
     --role "$lambda_execution_role_arn" \
-    --handler "hello.hello_handler" \
+    --handler "hello.main.hello_handler" \
     --timeout 30 \
     --runtime python3.6 \
     --publish
