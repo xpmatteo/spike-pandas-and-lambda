@@ -1,12 +1,19 @@
 #!/bin/bash
 
+set -e
+
 target=/tmp/package
 actual=/tmp/actual
 expected=/tmp/expected
 
-rm -tf $target $actual $expected
+rm -rf $target $actual $expected
 
-unzip -d $target DemoPandas.zip
+
+echo -n "Unzipping; compressed size: "
+ls -lh DemoPandas.zip | awk '{ print $5}'
+unzip -d $target -q DemoPandas.zip
+echo -n "Unzipped size: "
+du -sh $target | awk '{ print $1}'
 
 cd $target
 
@@ -21,3 +28,5 @@ print(hello.main.hello_handler({}, None))
 EOF
 
 diff $expected $actual
+
+echo "OK"
