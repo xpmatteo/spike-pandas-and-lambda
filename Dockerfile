@@ -1,11 +1,10 @@
-FROM ubuntu:latest
-RUN apt-get update
-#RUN apt-get -y upgrade
+FROM amazonlinux:latest
+RUN yum -y update
+RUN yum clean all
 
 # install python
-RUN apt-get install -y build-essential
-RUN apt-get install -y curl libreadline-gplv2-dev libncursesw5-dev libssl-dev libsqlite3-dev tk-dev libgdbm-dev libc6-dev libbz2-dev
-
+RUN yum -y install make automake gcc gcc-c++ kernel-devel
+RUN yum -y install zlib-devel bzip2-devel openssl-devel readline-devel ncurses-devel sqlite-devel
 RUN curl --remote-name --progress https://www.python.org/ftp/python/3.6.1/Python-3.6.1.tgz && \
   echo '2d0fc9f3a5940707590e07f03ecb08b9 Python-3.6.1.tgz' | md5sum -c -
 RUN tar zxf Python-3.6.1.tgz
@@ -15,28 +14,33 @@ RUN ldconfig
 RUN cd .. && rm -rf Python-3.6.1.tgz Python-3.6.1
 
 # needed for packaging the lambda
-RUN apt-get install -y zip
+RUN yum install -y zip
+
+# needed for testing the lambda package
+RUN yum install -y unzip
 
 # utilities for interactive use
-#RUN yum -y install vim less which
+RUN yum -y install vim less which
+
+# add manpages
+RUN yum install -y man-pages man
+
 RUN echo 'alias l="ls -la"' >> ~/.bashrc
 
 # create our virtual env
 RUN /usr/local/bin/python3.6 -m venv /opt/venv
 RUN /opt/venv/bin/pip install numpy
-RUN /opt/venv/bin/pip install scipy
-# RUN /opt/venv/bin/pip install sqlalchemy
-# RUN /opt/venv/bin/pip install requests
-# RUN apt-get install -y mysql-client  libmysqlclient-dev
-# RUN /opt/venv/bin/pip install mysqlclient
-# RUN /opt/venv/bin/pip install boto3
-# RUN /opt/venv/bin/pip install bitstring
-# RUN /opt/venv/bin/pip install 'scikit-learn>=0.18'
-# RUN /opt/venv/bin/pip install peakutils
-# RUN /opt/venv/bin/pip install 'pandas>=0.19'
-# RUN /opt/venv/bin/pip install xlrd
-# RUN /opt/venv/bin/pip install nose-parameterized
-# RUN /opt/venv/bin/pip install 'pymc3==3.0'
+
+RUN yum -y install blas
+RUN yum -y install lapack
+RUN yum -y install atlas-sse3-devel
+RUN yum -y install Cython
+RUN yum -y install gcc-gfortran libgfortran
+
+RUN /opt/venv/bin/pip install --no-binary :all: scipy
+
+# utilities for testing
+RUN yum -y install diffutils
 
 RUN mkdir /root/work
 WORKDIR /root/work
