@@ -24,21 +24,19 @@ RUN echo 'alias l="ls -la"' >> ~/.bashrc
 # create our virtual env
 RUN /usr/local/bin/python3.6 -m venv /opt/venv
 RUN /opt/venv/bin/pip install numpy
-RUN /opt/venv/bin/pip install pandas
-RUN /opt/venv/bin/pip install sqlalchemy
-RUN /opt/venv/bin/pip install requests
-RUN apt-get install -y mysql-client  libmysqlclient-dev
-RUN /opt/venv/bin/pip install mysqlclient
-RUN /opt/venv/bin/pip install boto3
-RUN /opt/venv/bin/pip install bitstring
-RUN /opt/venv/bin/pip install 'scikit-learn>=0.18'
-RUN /opt/venv/bin/pip install peakutils
-RUN /opt/venv/bin/pip install 'pandas>=0.19'
-RUN /opt/venv/bin/pip install xlrd
-RUN /opt/venv/bin/pip install nose-parameterized
-RUN /opt/venv/bin/pip install 'pymc3==3.0'
-
-RUN find "/opt/venv/lib/python3.6/site-packages/" -name "*.so" | xargs strip
+RUN /opt/venv/bin/pip install scipy
+# RUN /opt/venv/bin/pip install sqlalchemy
+# RUN /opt/venv/bin/pip install requests
+# RUN apt-get install -y mysql-client  libmysqlclient-dev
+# RUN /opt/venv/bin/pip install mysqlclient
+# RUN /opt/venv/bin/pip install boto3
+# RUN /opt/venv/bin/pip install bitstring
+# RUN /opt/venv/bin/pip install 'scikit-learn>=0.18'
+# RUN /opt/venv/bin/pip install peakutils
+# RUN /opt/venv/bin/pip install 'pandas>=0.19'
+# RUN /opt/venv/bin/pip install xlrd
+# RUN /opt/venv/bin/pip install nose-parameterized
+# RUN /opt/venv/bin/pip install 'pymc3==3.0'
 
 RUN mkdir /root/work
 WORKDIR /root/work

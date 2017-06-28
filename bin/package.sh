@@ -1,29 +1,21 @@
 #!/bin/bash
 
+set -e
+
 target=/root/work/DemoPandas.zip
+stage=/tmp/stage
 
-rm $target
+rm -rf $target $stage
 
-cd /opt/venv/lib/python3.6/site-packages
-zip -r $target \
-  numpy \
-  pandas \
-  sqlalchemy \
-  requests \
-  mysqlclient \
-  boto3 \
-  bitstring \
-  scikit-learn \
-  peakutils \
-  pandas \
-  xlrd \
-  nose-parameterized \
-  pymc3   \
-  pytz \
-  dateutil \
-  six.py \
-  --exclude="*__pycache__*"
+mkdir -p $stage
+pip3.6 install -t $stage numpy
+pip3.6 install -t $stage scipy
+cp -rp hello $stage
 
-cd /root/work
-zip -r $target hello --exclude="*__pycache__*"
+cd $stage
+echo "Stripping"
+find "." -name "*.so" | grep -v linalg | xargs strip
+echo "Zipping"
+zip -qr $target *  --exclude="*__pycache__*"
+
 

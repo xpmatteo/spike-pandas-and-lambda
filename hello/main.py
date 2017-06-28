@@ -9,14 +9,4 @@ for d, dirs, files in os.walk('lib'):
             ctypes.cdll.LoadLibrary(os.path.join(d, f))
 
 
-import numpy
-import pandas as pd
-
-def hello_handler(event, context):
-    m = pd.DataFrame({'foo': [1,2,3,4,5]})
-    return {
-        'message': str(m),
-    }
-
-if __name__ == '__main__':
-    print(hello_handler({}, None))
+from scipy.sparse.linalg import lsqr as sparse_lsqr

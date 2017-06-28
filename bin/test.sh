@@ -18,13 +18,10 @@ du -sh $target | awk '{ print $1}'
 cd $target
 
 cat > $expected <<EOF
-{'message': '   foo\n0    1\n1    2\n2    3\n3    4\n4    5'}
 EOF
 
 python3.6 > $actual <<EOF
-import hello.main
-
-print(hello.main.hello_handler({}, None))
+from scipy.sparse.linalg import lsqr as sparse_lsqr
 EOF
 
 diff $expected $actual
